@@ -200,7 +200,7 @@ func NewStringFormatter(format string) (*stringFormatter, error) {
 		Time:   t,
 		Module: "logger",
 		Args:   []interface{}{"go"},
-		fmt:    "hello %s",
+		Fmt:    "hello %s",
 	}
 	if err := fmter.Format(0, r, &bytes.Buffer{}); err != nil {
 		return nil, err

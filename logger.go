@@ -45,12 +45,12 @@ type Record struct {
 	Time   time.Time
 	Module string
 	Level  Level
+	Fmt    string
 	Args   []interface{}
 
 	// message is kept as a pointer to have shallow copies update this once
 	// needed.
 	message   *string
-	fmt       string
 	formatter Formatter
 	formatted string
 }
@@ -72,7 +72,7 @@ func (r *Record) Message() string {
 				r.Args[i] = redactor.Redacted()
 			}
 		}
-		msg := fmt.Sprintf(r.fmt, r.Args...)
+		msg := fmt.Sprintf(r.Fmt, r.Args...)
 		r.message = &msg
 	}
 	return *r.message
@@ -139,7 +139,7 @@ func (l *Logger) log(lvl Level, format string, args ...interface{}) {
 		Time:   timeNow(),
 		Module: l.Module,
 		Level:  lvl,
-		fmt:    format,
+		Fmt:    format,
 		Args:   args,
 	}
 
